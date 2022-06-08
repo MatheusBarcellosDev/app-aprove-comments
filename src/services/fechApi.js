@@ -14,13 +14,11 @@ const getComents = async () => {
 
 const deleteComents = async (id) => {
     const coments = await axios.delete(process.env.REACT_APP_URL_DELETE_TESTIMONIAL + id);
-    window.location.reload();
     return coments.data;
 }
 
 const updateComentsStatus = async (id) => {
     const coments = await axios.put(process.env.REACT_APP_URL_UPDATE_TESTIMONIAL + id);
-    window.location.reload();
     return coments.data;
 }
 

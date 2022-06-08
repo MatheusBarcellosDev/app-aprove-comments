@@ -10,6 +10,22 @@ const TableComentarios = () => {
 
     const [coments, setComents] = useState([]);
 
+    const deleteList = (id) => {
+        deleteComents(id)
+        .then(() => {
+            setComents(coments.filter(coment => coment.id !== id))
+        })
+    };
+
+
+    const updateComents = (id, name, email) => {
+        updateComentsStatus(id, name, email)
+        .then(() => {
+            setComents(coments.filter(coment => coment.id !== id))
+        }
+        );
+    };
+    
 
 
     useEffect(() => {
@@ -19,7 +35,6 @@ const TableComentarios = () => {
         );
     }
     , []);
-
 
 
     return (
@@ -36,6 +51,8 @@ const TableComentarios = () => {
                 </thead>
                 <tbody>
 
+                    {coments.length === 0 && <tr><td colSpan="5">Nenhum comentário cadastrado</td></tr>}
+
                     {coments.map(coment => (
                         <tr key={coment.id}>
                             <th scope="row">{coment.id}</th>
@@ -44,10 +61,10 @@ const TableComentarios = () => {
                             <td>{coment.message}</td>
                             <td>
                                 <button className="btn-accept"
-                                    onClick={() => {updateComentsStatus(coment.id, coment.name, coment.email)}}
+                                    onClick={() => {updateComents(coment.id, coment.name, coment.email)}}
                                 >Adicionar</button>
                                 <button className="btn-reject"
-                                    onClick={() => deleteComents(coment.id)}
+                                    onClick={() => {deleteList(coment.id)}}
                                 >Excluir</button>
                             </td>
                         </tr>
